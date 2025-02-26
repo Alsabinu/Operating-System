@@ -1,53 +1,87 @@
-#include <stdio.h>
-void main() {
-    int n, i, j, temp, time = 0;
-    float avgwt=0,avgtt=0; 
-    printf("Enter number of processes: ");
-    scanf("%d", &n);
-    int bt[n], wt[n], tt[n], p[n],wtime[i],ttime[i];
-    for (i = 0; i < n; i++) {
-        p[i] = i + 1;
-        printf("Enter Burst Time for P%d: ", p[i]);
-        scanf("%d", &bt[i]);
-    }
-    for (i = 0; i < n - 1; i++) {
-        for (j = i + 1; j < n; j++) {
-            if (bt[i] > bt[j]) {
-                temp = bt[i]; bt[i] = bt[j]; bt[j] = temp;
-                temp = p[i]; p[i] = p[j]; p[j] = temp;
-            }
-        }
-    }
-    wt[0] = 0; 
-    for (i = 1; i < n; i++)
+#include<stdio.h>
+void main()
+{
+  int n,i,j,temp;
+  double avg_wait=0,avg_tat=0;
+  printf("Enter the number of processes: ");
+  scanf("%d",&n);
+  int btime[n],wtime[n],ttime[n],p[n];
+  printf("Enter the burst time of the processes\n");
+  for(i=0;i<n;i++)
+  {
+    p[i]=i+1;
+    printf("P%d Burst Time: ",p[i]);
+    scanf("%d",&btime[i]);
+  }
+  for(i=0;i<n-1;i++)
+  {
+    for(j=i+1;j<n;j++)
+    {
+      if(btime[i]>btime[j])
       {
-        wt[i] = wt[i - 1] + bt[i - 1];
-        avgwt+=wtime[i];
+        temp=btime[i];
+        btime[i]=btime[j];
+        btime[j]=temp;
+        temp=p[i];
+        p[i]=p[j];
+        p[j]=temp;
       }
-  avgwt/=n;
-    for (i = 0; i < n; i++)
+      if(btime[i]>btime[j])
       {
-        tt[i] = wt[i] + bt[i];
-        avgtt+=ttime[i];
+        temp=p[i];
+        p[i]=p[j];
+        p[j]=temp;
       }
-  avgtt/=n;
-  printf("Average waiting time = %f\n",avgwt);
-  printf("Average turn around time = %f\n",avgtt);
-    printf("\nP\tBT\tWT\tTT");
-    for (i = 0; i < n; i++)
-        printf("\nP%d\t%d\t%d\t%d", p[i], bt[i], wt[i], tt[i]);
-    printf("\n\nGantt Chart:\n");
-    for (i = 0; i < n; i++)
-        printf("-----");
-    printf("\n|");
-    for (i = 0; i < n; i++)
-        printf(" P%d |", p[i]);
-    printf("\n");
-    for (i = 0; i < n; i++)
-        printf("-----");
-    printf("\n0  ");
-    for (i = 0; i < n; i++) {
-        time += bt[i];
-        printf("   %d ", time);
     }
+  }
+  wtime[0]=0;
+  for(i=0;i<n;i++) 
+  {
+    wtime[i]=wtime[i-1]+btime[i-1];
+    avg_wait=avg_wait+wtime[i];
+  }
+  avg_wait=avg_wait/n;
+  for(i=0;i<n;i++) 
+  {
+    ttime[i]=wtime[i]+btime[i];
+    avg_tat=avg_tat+ttime[i];
+  }
+  avg_tat=avg_tat/n;
+  printf("Process\tBurst Time\tWait Time\tTurnaround Time\n");
+  for(i=0;i<n;i++) 
+  {
+    printf("P%d\t%d\t\t%d\t\t%d\n",p[i],btime[i],wtime[i],ttime[i]);
+  }
+  printf("\n");
+  printf("Average Waiting Time : %.2f\nAverage Turnaround Time : %.2f\n",avg_wait,avg_tat);
+  printf("\n");
+  printf(" ");
+  for(i=0;i<n;i++) 
+  {
+    printf("--------");
+  }
+  printf("\n|");
+  for(i=0;i<n;i++) 
+  {
+    printf("P%d     |",p[i]);
+  }
+  printf("\n|");
+  for(i=0;i<n;i++) 
+  {
+    printf("--------");
+  }
+  printf("\n0\t");
+  int current_time=0;
+  for(i=0;i<n;i++) 
+  {
+    current_time=current_time+btime[i];
+    printf("%d\t",current_time);
+  }
+  printf("\n");
 }
+  
+  
+  
+  
+  
+                                                                                                                                             
