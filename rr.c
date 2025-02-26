@@ -59,8 +59,8 @@ int main()
     avgtt /= n;
     printf("The average waiting time: %.2f\n", avgwt);
     printf("The average turn around time: %.2f\n", avgtt);
-    printf("\n==========================================================================\n");
     printf("Gantt Chart\n");
+    printf("\n==========================================================================\n");
     for (i = 0; i < index; i++)
     {
         printf("P%d\t|", process_order[i]);
